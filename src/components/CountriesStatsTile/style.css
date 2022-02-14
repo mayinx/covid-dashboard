@@ -20,6 +20,20 @@
 
 .CountriesStatsTile .countriesList li .liDataPreview {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
+}
+
+.CountriesStatsTile .countriesList li .liDataPreview .DataCard{
+
+
+
+}
+
+@media all and (min-width: 768px){
+  .CountriesStatsTile .countriesList li .liDataPreview {
+    flex-direction: row;
+  }
+
 }

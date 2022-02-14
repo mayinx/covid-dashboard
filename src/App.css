@@ -56,6 +56,16 @@
   gap: 1rem;
 }
 
+
+.StatsTile{
+  padding: 1rem;
+  border: 1px solid slategray;
+}
+
+.StatsTile h2{
+  margin-bottom: 1rem;
+
+}
 .CountryStatsTile {
   grid-area: country-stats-tile;
 }
@@ -66,14 +76,15 @@
   grid-area: countries-stats-tile;
 }
 
-.StatsTile{
-  padding: 1rem;
-  border: 1px solid slategray;
+
+
+.DataCards{
+  display: flex;
+  flex-direction: column;
 
 }
 
-.card {
-}
+
 
 @media all and (min-width: 768px) {
   .main {
