@@ -40,7 +40,7 @@ function App() {
 
       {!loading && (
         <>
-        <CountryStatsTile countriesStats={countryStats} />
+        <CountryStatsTile countryStats={countryStats} />
         <GlobalStatsTile globalStats={globalStats} />
         <CountriesStatsTile countriesStats={countriesStats} />
         </>

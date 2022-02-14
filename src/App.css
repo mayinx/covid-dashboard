@@ -66,6 +66,12 @@
   grid-area: countries-stats-tile;
 }
 
+.StatsTile{
+  padding: 1rem;
+  border: 1px solid slategray;
+
+}
+
 .card {
 }
 
