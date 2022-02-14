@@ -13,6 +13,7 @@ export default function CountriesStatsTile({countriesStats, filterStats, totalCo
       {countriesStats.map((country, id) => {
         return <CountryListItem key={country.id + '_' + id} country={country} />;
       })}
+      <li className="loadMoreIndicator">Loading more</li>
     </ul>
 
     </div>
