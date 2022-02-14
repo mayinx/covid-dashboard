@@ -1,3 +1,27 @@
+.CountriesStatsTile .FilterBar {
+  padding: 1rem;
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.CountriesStatsTile .FilterBar input {
+font-size: 1.25rem;
+padding: 0.25rem;
+}
+.CountriesStatsTile .FilterBar .itemsCounter {
+/* margin-bottom: 1rem; */
+flex: 100%;
+text-align: center;
+padding: 1rem 0 1rem 1rem;
+}
+
+
+
+
 .CountriesStatsTile .countriesList {
   list-style-type: none;
   background-color: slategray;
@@ -27,13 +51,17 @@
 
 .CountriesStatsTile .countriesList li .liDataPreview .DataCard{
 
-
-
 }
 
+@media all and (min-width: 576px){
+  .CountriesStatsTile .FilterBar {
+    flex-direction: row;
+    justify-content: space-between;
+
+  }
+}
 @media all and (min-width: 768px){
   .CountriesStatsTile .countriesList li .liDataPreview {
     flex-direction: row;
   }
-
 }

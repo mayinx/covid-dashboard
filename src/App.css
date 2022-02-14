@@ -6,6 +6,11 @@
   margin: 0;
 }
 
+
+body{
+  font-size: 16px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -28,7 +33,6 @@
     "main"
     "footer";
   grid-template-columns: 1fr;
-  /* grid-template-rows: 50px auto 50px; */
   grid-template-rows: auto 1fr auto;
   height: 100vh;
 }
@@ -64,7 +68,6 @@
 
 .StatsTile h2{
   margin-bottom: 1rem;
-
 }
 .CountryStatsTile {
   grid-area: country-stats-tile;

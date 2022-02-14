@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [countriesStats, setCountriesStats] = useState([]);
+  const [filteredSountriesStats, setFilteredCountriesStats] = useState([]);
   const [countryStats, setCountryStats] = useState({});
   const [globalStats, setGlobalStats] = useState({});
   const [error, setError] = useState(null);
@@ -20,12 +21,24 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setCountriesStats(data.Countries || []);
+        setFilteredCountriesStats(data.Countries || {});
         setGlobalStats(data.Global || {});
         setCountryStats(data.Countries.find(country => country.Slug === "germany") || {});
         setLoading(false);
       })
       .catch((e) => setError(e));
   }, []);
+
+  const filterCountriesStats = (e) =>{
+    const searchStr = e.target.value.toLowerCase();
+    const result = countriesStats.filter((country)=>{
+      let cname = country.Country.toLowerCase();
+      let ccode = country.CountryCode.toLowerCase();
+      return (ccode.search(searchStr) !== -1 || cname.search(searchStr) !== -1 );
+    });
+
+    setFilteredCountriesStats(result);
+  }
 
   return (
     <div className="App">
@@ -42,7 +55,7 @@ function App() {
         <>
         <CountryStatsTile countryStats={countryStats} />
         <GlobalStatsTile globalStats={globalStats} />
-        <CountriesStatsTile countriesStats={countriesStats} />
+        <CountriesStatsTile countriesStats={filteredSountriesStats} filterStats={filterCountriesStats} totalCount={countriesStats.length}/>
         </>
 
       )}
