@@ -6,11 +6,12 @@ import CountriesStatsTile from "./components/CountriesStatsTile/CountriesStatsTi
 
 import { useState, useEffect } from "react";
 
-
 import useFetch from "./hooks/useFetch";
 
 function App() {
-  const {countryStats, globalStats, countriesStats, filteredSountriesStats, error, loading, filterCountriesStats } = useFetch();
+  const {countryStats, globalStats, countriesStats, filteredCountriesStats, error, loading, filterCountriesStats, countriesStatsListRef,  hasMore, loadsMore } = useFetch();
+
+  const [pageNo, setPageNo] = useState(1);
 
   return (
     <div className="App">
@@ -25,14 +26,13 @@ function App() {
 
       {!loading && (
         <>
-        <CountryStatsTile countryStats={countryStats} />
-        <GlobalStatsTile globalStats={globalStats} />
-        <CountriesStatsTile countriesStats={filteredSountriesStats} filterStats={filterCountriesStats} totalCount={countriesStats.length}/>
+          <CountryStatsTile countryStats={countryStats} />
+          <GlobalStatsTile globalStats={globalStats} />
+          <CountriesStatsTile countriesStats={filteredCountriesStats} filterStats={filterCountriesStats} totalCount={countriesStats.length}  listRef={countriesStatsListRef} hasMore={hasMore}   />
         </>
-
       )}
       </main>
-      <footer className="footer">FOOTER</footer>
+      <footer className="footer">- Footer - </footer>
     </div>
   );
 }

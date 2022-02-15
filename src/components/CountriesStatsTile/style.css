@@ -29,6 +29,8 @@ padding: 1rem 0 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  padding-bottom: 10rem;
 }
 
 .CountriesStatsTile .countriesList li {
@@ -52,6 +54,14 @@ padding: 1rem 0 1rem 1rem;
 .CountriesStatsTile .countriesList li .liDataPreview .DataCard{
 
 }
+
+.CountriesStatsTile .countriesList li.loadMoreIndicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
 
 @media all and (min-width: 576px){
   .CountriesStatsTile .FilterBar {

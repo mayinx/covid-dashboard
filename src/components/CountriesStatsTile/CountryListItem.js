@@ -2,7 +2,7 @@ import {useState} from "react";
 import DataCard from "../shared/DataCard/DataCard";
 import _ from "lodash";
 
-export default function CountryListItem({ country }) {
+export default function CountryListItem({ country, idx }) {
   const [showDetails, setShowDetails] = useState(false);
   const dataCards = ["NewConfirmed", "TotalConfirmed", "NewDeaths", "TotalDeaths"].map((dataAttr) => {
     return <DataCard
@@ -18,8 +18,9 @@ export default function CountryListItem({ country }) {
     <li>
       <div className="liHeader" onClick={() => setShowDetails(!showDetails)}>
         <div>
+          <span className="countryNo">{idx+1}.</span>{" "}
           <span className="countryName">{country.Country}</span>{" "}
-          <span className="countryCode">{country.CountryCode}</span>
+          <span className="countryCode">({country.CountryCode})</span>
         </div>
         <div className="liDataShort">
           New: {country.NewConfirmed} Cases | {country.NewDeaths} Deaths
