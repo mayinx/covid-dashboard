@@ -101,4 +101,6 @@ body{
   grid-area: footer;
   background-color: lightslategray;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 }

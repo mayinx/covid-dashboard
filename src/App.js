@@ -4,14 +4,10 @@ import CountryStatsTile from "./components/CountryStatsTile/CountryStatsTile";
 import GlobalStatsTile from "./components/GlobalStatsTile/GlobalStatsTile";
 import CountriesStatsTile from "./components/CountriesStatsTile/CountriesStatsTile";
 
-import { useState, useEffect } from "react";
-
 import useFetch from "./hooks/useFetch";
 
 function App() {
-  const {countryStats, globalStats, countriesStats, filteredCountriesStats, error, loading, filterCountriesStats, countriesStatsListRef,  hasMore, loadsMore } = useFetch();
-
-  const [pageNo, setPageNo] = useState(1);
+  const {countryStats, globalStats, countriesStats, filteredCountriesStats, error, loading, loadData, filterCountriesStats, countriesStatsListRef,  hasMore,   totalCount} = useFetch();
 
   return (
     <div className="App">
@@ -28,11 +24,14 @@ function App() {
         <>
           <CountryStatsTile countryStats={countryStats} />
           <GlobalStatsTile globalStats={globalStats} />
-          <CountriesStatsTile countriesStats={filteredCountriesStats} filterStats={filterCountriesStats} totalCount={countriesStats.length}  listRef={countriesStatsListRef} hasMore={hasMore}   />
+          <CountriesStatsTile countriesStats={filteredCountriesStats} filterStats={filterCountriesStats} totalCount={totalCount}  listRef={countriesStatsListRef} hasMore={hasMore}   />
         </>
       )}
       </main>
-      <footer className="footer">- Footer - </footer>
+      <footer className="footer">Status: {(new Date(globalStats.Date)).toLocaleString()}
+
+      <button onClick={loadData}>Update Data</button>
+       </footer>
     </div>
   );
 }

@@ -12,11 +12,16 @@
 font-size: 1.25rem;
 padding: 0.25rem;
 }
-.CountriesStatsTile .FilterBar .itemsCounter {
-/* margin-bottom: 1rem; */
-flex: 100%;
-text-align: center;
-padding: 1rem 0 1rem 1rem;
+.CountriesStatsTile .FilterBar .paginationStatus {
+  /* margin-bottom: 1rem; */
+  flex: 100%;
+  text-align: center;
+  padding: 1rem 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.CountriesStatsTile .FilterBar .paginationStatus .scrollInfo{
+font-weight: normal;
 }
 
 
