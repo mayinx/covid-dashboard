@@ -1,4 +1,5 @@
 .CountriesStatsTile .FilterBar {
+  font-size: 1.25rem;
   padding: 1rem;
   display:flex;
   flex-direction: column;
@@ -6,12 +7,19 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  color: #6c757d;
 }
 
-.CountriesStatsTile .FilterBar input {
-font-size: 1.25rem;
-padding: 0.25rem;
+.CountriesStatsTile .FilterBar h4 {
+  font-weight: normal;
 }
+.CountriesStatsTile .FilterBar input {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  border: 1px solid #6c7584;
+  border-radius: 5px;;
+}
+
 .CountriesStatsTile .FilterBar .paginationStatus {
   /* margin-bottom: 1rem; */
   flex: 100%;
@@ -19,17 +27,16 @@ padding: 0.25rem;
   padding: 1rem 0 1rem 1rem;
   display: flex;
   flex-direction: column;
+  color: #6c757d;
 }
+
 .CountriesStatsTile .FilterBar .paginationStatus .scrollInfo{
-font-weight: normal;
+  font-weight: normal;
 }
-
-
-
 
 .CountriesStatsTile .countriesList {
   list-style-type: none;
-  background-color: slategray;
+  background-color: transparent;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -39,8 +46,15 @@ font-weight: normal;
 }
 
 .CountriesStatsTile .countriesList li {
-  background-color: lightgray;
-  padding: 1rem 0.5rem;
+  background-color: #b7cdcd;
+  color: #383a38;
+  color: #153d3d;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;;
+  font-size: 1.25rem;;
+  border: 1px solid #93b4b4;
+  cursor: pointer;
 }
 
 .CountriesStatsTile .countriesList li .liHeader {
@@ -48,23 +62,28 @@ font-weight: normal;
   justify-content: space-between;
   padding: 1rem;
 }
+.CountriesStatsTile .countriesList li .liHeader .liDataShort{
+  font-size: 80%;
+}
 
-.CountriesStatsTile .countriesList li .liDataPreview {
+.CountriesStatsTile .countriesList li .DataCards {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1rem;
   padding: 1rem;
 }
 
-.CountriesStatsTile .countriesList li .liDataPreview .DataCard{
+.CountriesStatsTile .countriesList li .DataCards .DataCard{
 
 }
 
 .CountriesStatsTile .countriesList li.loadMoreIndicator {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
+  justify-content: center;
+  align-items: center;
+  color: #153d3d;
 }
 
 
@@ -76,7 +95,7 @@ font-weight: normal;
   }
 }
 @media all and (min-width: 768px){
-  .CountriesStatsTile .countriesList li .liDataPreview {
+  .CountriesStatsTile .countriesList li .DataCards {
     flex-direction: row;
   }
 }

@@ -6,12 +6,16 @@ import CountriesStatsTile from "./components/CountriesStatsTile/CountriesStatsTi
 
 import useFetch from "./hooks/useFetch";
 
+
+import { MdOutlineCoronavirus } from 'react-icons/md';
+
 function App() {
-  const {countryStats, globalStats, countriesStats, filteredCountriesStats, error, loading, loadData, filterCountriesStats, countriesStatsListRef,  hasMore,   totalCount} = useFetch();
+  const {countryStats, globalStats,  filteredCountriesStats, error, loading, loadData, filterCountriesStats, countriesStatsListRef,  hasMore,   totalCount} = useFetch();
 
   return (
     <div className="App">
       <header className="header">
+        <MdOutlineCoronavirus size="2.5rem" />{""}
         <h1>COVID-19-Dashboard</h1>
       </header>
       <main className="main">

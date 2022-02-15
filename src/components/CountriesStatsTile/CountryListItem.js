@@ -15,8 +15,8 @@ export default function CountryListItem({ country, idx }) {
 
 
   return (
-    <li>
-      <div className="liHeader" onClick={() => setShowDetails(!showDetails)}>
+    <li onClick={() => setShowDetails(!showDetails)}>
+      <div className="liHeader" >
         <div>
           <span className="countryNo">{idx+1}.</span>{" "}
           <span className="countryName">{country.Country}</span>{" "}
@@ -28,7 +28,7 @@ export default function CountryListItem({ country, idx }) {
       </div>
 
       {showDetails && (
-        <div className="liDataPreview">
+        <div className="DataCards">
 
 
         {dataCards}

@@ -1,5 +1,36 @@
 .DataCard  {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   padding: 1rem;
   flex: 1;
+
+  background: #fff;
+  padding: 1.5rem;
+
+  border-radius: 5px;
+  overflow: hidden;
+  /* display: flex; */
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+  transition: all 0.2s;
+
 }
+
+.DataCard:hover  {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+}
+
+.DataCard__title {
+  font-size: 1rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.DataCard__data {
+  color: #212529;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  font-size: 2rem;
+}
+
