@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <header className="header">
         <MdOutlineCoronavirus size="2.5rem" />{""}
-        <h1>COVID-19-Dashboard</h1>
+        <h1>COVID-19 Dashboard</h1>
       </header>
       <main className="main">
 
@@ -34,7 +34,9 @@ function App() {
       </main>
       <footer className="footer">Status: {(new Date(globalStats.Date)).toLocaleString()}
 
-      <button onClick={loadData}>Update Data</button>
+      <button className="btn green" onClick={loadData}>Update Data</button>
+
+
        </footer>
     </div>
   );

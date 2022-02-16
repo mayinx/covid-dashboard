@@ -43,22 +43,33 @@
   gap: 1rem;
 
   padding-bottom: 10rem;
+
 }
 
 .CountriesStatsTile .countriesList li {
-  background-color: #b7cdcd;
+  /* background-color: #b7cdcd; */
+  background-color: white;
   color: #383a38;
   color: #153d3d;
   box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
   padding: 1.5rem 1rem;
   border-radius: 10px;;
   font-size: 1.25rem;;
-  border: 1px solid #93b4b4;
+  border: 1px solid transparent;
   cursor: pointer;
+  transition: all 0.2s;
+}
+.CountriesStatsTile .countriesList li.selected {
+
+  border: 1px solid #93b4b4;
+
+  background-color: #b7cdcd;
+
 }
 
 .CountriesStatsTile .countriesList li .liHeader {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
 }
@@ -91,11 +102,33 @@
   .CountriesStatsTile .FilterBar {
     flex-direction: row;
     justify-content: space-between;
-
   }
+
+
 }
 @media all and (min-width: 768px){
+
+  .CountriesStatsTile .countriesList {
+    padding: 1rem 3rem;
+    gap: 2rem;
+  }
+
+
+
   .CountriesStatsTile .countriesList li .DataCards {
     flex-direction: row;
   }
+}
+
+
+@media all and (min-width: 1024px){
+
+
+
+  .CountriesStatsTile .countriesList li .liHeader {
+    flex-direction: row;
+    align-items: center;
+  }
+
+
 }

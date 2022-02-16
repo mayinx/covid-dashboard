@@ -6,11 +6,7 @@
   margin: 0;
 }
 
-
-
-
 :root {
-
   --header-bg-color: #51a9f4;
   --header-bg-color: #7276bf;
   --header-bg-color: #4d6466;
@@ -35,8 +31,9 @@
 
   --footer-bg-color: #e7b476;
   --footer-bg-color: #ebc597;
-  --footer-color: whitesmoke;
-  --footer-color: #383a4f;
+  /* --footer-color: whitesmoke;
+  --footer-color: #383a4f; */
+  --footer-color: #212529;
 
 
 
@@ -52,20 +49,7 @@ body{
   letter-spacing: 1px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .App {
   display: grid;
@@ -80,35 +64,38 @@ body{
 
 .header {
   grid-area: header;
-
   background-color: var(--header-bg-color);
   color: var(--header-color);
   padding: 1.5rem;
-font-size: 2.5rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+
 }
 
 .header h1 {
   letter-spacing: 3px;
-  font-size: 2.5rem;
+  font-size: 1.25rem;
   margin-left: 0.5rem;
-  /* font-weight: 500; */
+  text-transform: uppercase;
 }
+
+
 
 .main {
   grid-area: main;
-  padding: 1rem;
+  padding: 0;
+
   overflow: auto;
-
   background-color:  var(--main-bg-color);
-
-
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "country-stats-tile" "global-stats-tile" "countries-stats-tile";
-  gap: 1rem;
+  gap: 2rem;
 }
 
 
@@ -151,29 +138,101 @@ font-size: 2.5rem;
 
 
   background-color: aliceblue;
-  border-top: 3px solid #789e9e;
+  /* border-top: 3px solid #789e9e; */
 
   background-color: #dbdbdb;
-  border-top: 3px solid #bfbfbf;
 
+  border-top: 3px solid #85bdc1;
 
-  padding: 1.5rem;
+  background-color: #92c5c8;
+
+  padding: 1rem 2rem;
   font-size: 1.25rem;
   display: flex;
   justify-content: space-between;
-
-
-
-
-
-
+  align-items: center;
 }
 
+
+.footer .btn {
+  padding: 14px 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  text-decoration: none; /* in case we use anchor tag instead of button tag  */
+
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+
+  border-radius: 6px;
+
+  background-color: #e7e7e7;
+  color: black;
+}
+
+
+.footer .btn:hover {
+  background: #ddd;
+}
+
+
+
+@media all and (min-width: 480px) {
+  .header {
+    padding: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+  .main  {
+    padding: 1rem;
+  }
+}
+
+
+@media all and (min-width: 576px) {
+  .header {
+    padding: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+  .main  {
+    padding: 2rem;
+  }
+}
 @media all and (min-width: 768px) {
+
+  .header {
+    padding: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .header h1 {
+    font-size: 2.25rem;
+
+  }
+
   .main {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "country-stats-tile global-stats-tile" "countries-stats-tile  countries-stats-tile";
-    gap: 1rem;
+    gap: 2.5rem;
+    padding: 2.5rem;
   }
 }
+
+
+
+
 
