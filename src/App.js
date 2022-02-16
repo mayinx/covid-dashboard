@@ -6,7 +6,6 @@ import CountriesStatsTile from "./components/CountriesStatsTile/CountriesStatsTi
 
 import useFetch from "./hooks/useFetch";
 
-
 import { MdOutlineCoronavirus } from 'react-icons/md';
 
 function App() {
@@ -33,11 +32,8 @@ function App() {
       )}
       </main>
       <footer className="footer">Status: {(new Date(globalStats.Date)).toLocaleString()}
-
-      <button className="btn green" onClick={loadData}>Update Data</button>
-
-
-       </footer>
+        <button className="btn green" onClick={loadData}>Update Data</button>
+      </footer>
     </div>
   );
 }

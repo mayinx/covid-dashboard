@@ -1,29 +1,31 @@
 import { useState, useEffect, useRef } from "react";
 
-// TODO: Implement pagination for search/filter-results as well [ d ]
 // TODO: Refactor this into a reducer - and perhaps share the result
-// via useContext to avoid props drilling... [ ]
+//       in App.js via useContext to avoid happy props drilling... [o]
+// TODO: Find better var names - brr & DRY everything up [o]
+// TODO: Transform loadData into async function [o]
+// TODO: And while you're on it: Use axios [o]
+// TODO: Implement more filter options [o]
+// TODO: Implement sort options [o]
 export default function useFetch(){
   const [countriesStats, setCountriesStats] = useState([]);
   const [filteredCountriesStats, setFilteredCountriesStats] = useState([]);
   const [countryStats, setCountryStats] = useState({});
   const [globalStats, setGlobalStats] = useState({});
-  const noOfPagesRef  = useRef(1);
-  const currentPage = useRef(1);
-  const queryStrRef = useRef("");
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+
+  // Needed in various event handlers since those proove to be "more reliable"
+  // in event handlers than states ;-)
+  const noOfPagesRef  = useRef(1);
+  const currentPage = useRef(1);
+  const queryStrRef = useRef("");
   const hasMoreRef = useRef(false);
   const loadsMoreRef = useRef(false);
   const countriesStatsListRef = useRef();
-
-  // const reloadData = () =>{
-
-  //   reloadData
-
-  // };
 
   const loadData = () =>{
     setLoading(true);
@@ -36,16 +38,12 @@ export default function useFetch(){
         setGlobalStats(data.Global || {});
         setCountryStats(countries.find(country => country.Slug === "germany") || {});
 
-         // TODO: That's not DRY at all
         setCountriesStats(countries || []);
         setFilteredCountriesStats(countries.slice(0, 10) || []);
 
         setTotalCount(total);
         noOfPagesRef.current = Math.ceil(total / 10);
 
-        // TODO: ... neither is this:
-        // Check: Refactor into event handler that's passed to child componentes
-        // to query the ref if possible and get rid of the state ... ?
         hasMoreRef.current = total > 10;
         setHasMore(hasMoreRef.current);
         currentPage.current = 1;
@@ -55,19 +53,17 @@ export default function useFetch(){
       .catch((e) => setError(e));
   };
 
-
   const filterCountriesStats = async (e) =>{
     queryStrRef.current = e.target.value.toLowerCase();
     const {statsSliced, totalStats} = await getCountriesStatsSliced(0,10);
     noOfPagesRef.current = Math.ceil(totalStats / 10);
-    console.log("NO OF PAGES IN FILTERCOUNTRIESSTATS: ", noOfPagesRef.current);
     setHasMore(totalStats > 10);
     hasMoreRef.current = totalStats > 10;
     currentPage.current = 1;
     setFilteredCountriesStats(statsSliced);
   };
 
-  // Returns a sliced ary of filtered or all countries stats
+  // Returns a sliced ary of filtered or unfiltered/all countries stats
   const getCountriesStatsSliced = async (startPos=0, endPos=10) =>{
     let stats = [];
     let totalStats = 0;
@@ -128,12 +124,11 @@ export default function useFetch(){
   // Interesting: This seems to be necessary to get reliable access to the
   // above laoded state-data in the below registered event handlers - otherwise
   // the originally filled 'countriesStats'-ary (state) is empty in mentioned handlers
-  // (and subsequently called functions like 'loadMoreCountriesStats') - at least "every
-  // now and then".
-  // At a first glance it seems to be unwise to execute the below an every rerender
-  // - but as someone clever stated in an react isssue: "useEffect doesn't block paint
-  // and addEventListener is very fast. It's no big deal to re-execute it once in
-  // a while"  ... ?
+  // (and in subsequently called functions like 'loadMoreCountriesStats') - at least
+  // "every now and then".
+  // At a first glance it seems to be unwise to execute the below an every component-rerender
+  // - but as someone clever stated in an react isssue discussion: "useEffect doesn't block
+  // paint and addEventListener is very fast. It's no big deal to re-execute it once in a while"... ?
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, true);
     return () => window.removeEventListener("scroll", handleScroll, true);
