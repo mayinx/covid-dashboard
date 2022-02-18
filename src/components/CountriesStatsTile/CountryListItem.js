@@ -12,10 +12,8 @@ export default function CountryListItem({ country, idx }) {
     }
   );
 
-
-
   return (
-    <li className={showDetails && "selected" } onClick={() => setShowDetails(!showDetails)}>
+    <li className={showDetails ? "selected" : undefined } onClick={() => setShowDetails(!showDetails)}>
       <div className="liHeader" >
         <div>
           <span className="countryNo">{idx+1}.</span>{" "}

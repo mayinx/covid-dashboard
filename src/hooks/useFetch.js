@@ -1,22 +1,34 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useReducer, useEffect, useRef } from "react";
 
 // TODO: Refactor this into a reducer - and perhaps share the result
-//       in App.js via useContext to avoid happy props drilling... [o]
+//       in App.js via useContext to avoid happy props drilling... [d/o]
 // TODO: Find better var names - brr & DRY everything up [o]
 // TODO: Transform loadData into async function [o]
 // TODO: And while you're on it: Use axios [o]
 // TODO: Implement more filter options [o]
 // TODO: Implement sort options [o]
-export default function useFetch(){
-  const [countriesStats, setCountriesStats] = useState([]);
-  const [filteredCountriesStats, setFilteredCountriesStats] = useState([]);
-  const [countryStats, setCountryStats] = useState({});
-  const [globalStats, setGlobalStats] = useState({});
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
-  const [totalCount, setTotalCount] = useState(0);
+const initialState = {
+  countriesStats: [],
+  filteredCountriesStats: [],
+  countryStats: {},
+  globalStats: {},
+
+  error: null,
+  loading: false,
+  hasMore: false,
+  totalCount: 0
+}
+
+export default function useFetch(){
+  // uh. ah.
+  const [state, dispatch] = useReducer(
+    (state, updates) => ({
+      ...state,
+      ...updates,
+    }),
+    initialState
+  );
 
   // Needed in various event handlers since those proove to be "more reliable"
   // in event handlers than states ;-)
@@ -25,42 +37,50 @@ export default function useFetch(){
   const queryStrRef = useRef("");
   const hasMoreRef = useRef(false);
   const loadsMoreRef = useRef(false);
-  const countriesStatsListRef = useRef();
+  const countriesStatsListRef = useRef(null);
 
   const loadData = () =>{
-    setLoading(true);
-    setError(null);
+    dispatch({ loading: true })
+    dispatch({ error: null })
+
     fetch("https://api.covid19api.com/summary")
       .then((response) => response.json())
       .then((data) => {
         const countries = data.Countries;
-        const total = countries.length
-        setGlobalStats(data.Global || {});
-        setCountryStats(countries.find(country => country.Slug === "germany") || {});
+        const total = countries.length;
 
-        setCountriesStats(countries || []);
-        setFilteredCountriesStats(countries.slice(0, 10) || []);
+        dispatch({globalStats: (data.Global || {})});
+        dispatch({countryStats: (
+          countries.find(country => country.Slug === "germany") || {})
+        });
 
-        setTotalCount(total);
+        dispatch({countriesStats: (countries || [])});
+        dispatch(
+          { filteredCountriesStats: (countries.slice(0, 10) || []) }
+        );
+
+        dispatch({totalCount: total});
         noOfPagesRef.current = Math.ceil(total / 10);
 
         hasMoreRef.current = total > 10;
-        setHasMore(hasMoreRef.current);
+        dispatch({type: "setHasMore", value: hasMoreRef.current});
         currentPage.current = 1;
 
-        setLoading(false);
+        dispatch({ loading: false });
       })
-      .catch((e) => setError(e));
+      .catch((e) => dispatch({error: e}));
   };
 
   const filterCountriesStats = async (e) =>{
     queryStrRef.current = e.target.value.toLowerCase();
     const {statsSliced, totalStats} = await getCountriesStatsSliced(0,10);
     noOfPagesRef.current = Math.ceil(totalStats / 10);
-    setHasMore(totalStats > 10);
+    dispatch({hasMore: totalStats > 10});
     hasMoreRef.current = totalStats > 10;
     currentPage.current = 1;
-    setFilteredCountriesStats(statsSliced);
+    dispatch(
+      { filteredCountriesStats: statsSliced }
+    );
   };
 
   // Returns a sliced ary of filtered or unfiltered/all countries stats
@@ -70,18 +90,18 @@ export default function useFetch(){
     let query = queryStrRef.current?.toLowerCase();
 
     if (query.length > 0) {
-      stats =  countriesStats.filter((country)=>{
+      stats =  state.countriesStats.filter((country)=>{
       let cname = country.Country.toLowerCase();
       let ccode = country.CountryCode.toLowerCase();
       return (ccode.search(queryStrRef.current) !== -1 || cname.search(queryStrRef.current) !== -1 );
     })}
     else {
-      stats =  countriesStats;
+      stats =  state.countriesStats;
       queryStrRef.current = "";
     }
 
     totalStats = stats.length
-    setTotalCount(totalStats);
+    dispatch({totalCount: totalStats});
 
     return {statsSliced: stats.slice(startPos, endPos), totalStats}
 
@@ -95,10 +115,12 @@ export default function useFetch(){
     const endPos = startPos + 10;
 
     const {statsSliced} = await getCountriesStatsSliced(startPos, endPos);
-    setFilteredCountriesStats(prevStats => [ ...prevStats, ...statsSliced] );
+    dispatch(
+      { filteredCountriesStats: [ ...state.filteredCountriesStats, ...statsSliced] }
+    );
 
     currentPage.current = nextPage;
-    setHasMore(nextPage<noOfPagesRef.current);
+    dispatch({hasMore: nextPage<noOfPagesRef.current});
     hasMoreRef.current = nextPage<noOfPagesRef.current;
     loadsMoreRef.current = false;
   };
@@ -134,5 +156,5 @@ export default function useFetch(){
     return () => window.removeEventListener("scroll", handleScroll, true);
   });
 
-  return {countryStats, globalStats, countriesStats, filteredCountriesStats, error, loading, loadData, filterCountriesStats, loadMoreCountriesStats, countriesStatsListRef, hasMore, totalCount};
+  return {state, loadData, filterCountriesStats, loadMoreCountriesStats, countriesStatsListRef};
 }

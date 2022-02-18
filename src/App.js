@@ -9,7 +9,7 @@ import useFetch from "./hooks/useFetch";
 import { MdOutlineCoronavirus } from 'react-icons/md';
 
 function App() {
-  const {countryStats, globalStats,  filteredCountriesStats, error, loading, loadData, filterCountriesStats, countriesStatsListRef,  hasMore,   totalCount} = useFetch();
+  const {state, loadData, filterCountriesStats, countriesStatsListRef} = useFetch();
 
   return (
     <div className="App">
@@ -19,19 +19,20 @@ function App() {
       </header>
       <main className="main">
 
-      {error && <div>An error occured: {error.message}</div>}
+      {state.error && <div>An error occured: {state.error.message}</div>}
 
-      {loading && !error && <div>Fetching  Data...</div>}
+      {state.loading && !state.error && <div>Fetching  Data...</div>}
 
-      {!loading && (
+      {!state.error && !state.loading && (
         <>
-          <CountryStatsTile countryStats={countryStats} />
-          <GlobalStatsTile globalStats={globalStats} />
-          <CountriesStatsTile countriesStats={filteredCountriesStats} filterStats={filterCountriesStats} totalCount={totalCount}  listRef={countriesStatsListRef} hasMore={hasMore}   />
+          <CountryStatsTile countryStats={state.countryStats} />
+          <GlobalStatsTile globalStats={state.globalStats} />
+          <CountriesStatsTile countriesStats={state.filteredCountriesStats} filterStats={filterCountriesStats} totalCount={state.totalCount}  listRef={countriesStatsListRef} hasMore={state.hasMore} />
         </>
       )}
       </main>
-      <footer className="footer">Status: {(new Date(globalStats.Date)).toLocaleString()}
+
+      <footer className="footer">Status: {(new Date(state.globalStats.Date)).toLocaleString()}
         <button className="btn green" onClick={loadData}>Update Data</button>
       </footer>
     </div>
